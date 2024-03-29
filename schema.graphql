@@ -1,0 +1,70 @@
+type Account {
+  id: ID!
+  email: String!
+  date_created: String!
+  stripe_customer_id: String!
+  plan: String!
+  referrer: String
+  active: Boolean!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+  date_created: String!
+  last_login: String
+  permission: String!
+  push_token: String
+  account_id: ID!
+}
+
+type Invite {
+  id: ID!
+  invite_id: String!
+  email: String!
+  account_id: ID!
+  data_sent: String!
+  used: Boolean!
+}
+
+type Query {
+  accounts(page: Int = 1, pageSize: Int = 20, filterId: Int): [Account!]!
+  users(page: Int = 1, pageSize: Int = 20, filterId: Int): [User!]!
+  invites(page: Int = 1, pageSize: Int = 20, filterId: Int): [Invite!]!
+}
+
+input CreateAccountInput {
+  email: String!
+  date_created: String!
+  stripe_customer_id: String!
+  plan: String!
+  referrer: String
+  active: Boolean!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  date_created: String!
+  last_login: String
+  permission: String!
+  push_token: String
+  account_id: ID!
+}
+
+input CreateInviteInput {
+  invite_id: String!
+  email: String!
+  account_id: ID!
+  data_sent: String!
+  used: Boolean!
+}
+
+type Mutation {
+  createAccount(input: CreateAccountInput!): Account!
+  createUser(input: CreateUserInput!): User!
+  createInvite(input: CreateInviteInput!): Invite!
+}
